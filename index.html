@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&amp;display=swap"
+        rel="stylesheet" />
+    <title>TEI 2024 Presentation</title>
+    <script type="module" crossorigin src="/assets/index-DMIldRyr.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-j2wy2Juf.css">
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+          <section class="title-slide slide">
+              <h2 class="maintitle">C is for Co(nsortium|llaboration|mmunity)</h2>
+              <p>Or, What Can GitHub Issues Tell Us About the TEI-C?</p>
+              <hr />
+              <footer class="r-fit-text">
+                  <p>Joey Takeda | Digital Humanities Innovation Lab | Simon Fraser
+                      University</p>
+                  <p>October 9, 2024 | Buenos Aires, Argentina | TEI 2024</p>
+              </footer>
+          </section> 
+
+      
+      <section>
+        <ul class="fragmented">
+          <li>T: Text ("What is a text, really?")</li>
+          <li>E: Encoding (SGML, Unicode, XML)</li>
+          <li>I: Interchange, Interopability, Initiative (c.f. Bauman, Holmes)</li>
+          <li>C: Consortium...but also, Community, Council, Collaboration, Communication</li>
+
+        </ul>
+
+      </section>    
+
+      <section data-background-image="images/github.png">
+          <div class="fragment fade-out">
+              <p>The TEI's GitHub Repo</p>
+              <p><a href="https://github.com/TEIC/TEI">https://github.com/TEIC/TEI</a></p>
+          </div>
+      </section>
+      
+      <section data-background-image="images/gh_issues.png"></section>
+
+      <section>
+        <ul class="fragmented">
+          <li>2000+ issues</li>
+          <li>17,000+ comments</li>
+          <li>~7 comments per issue (average)</li>
+        </ul>
+
+      </section>
+      <section>
+        <h2>Method</h2>
+        <ul class="fragmented">
+          <li>Use GitHub API to extract all issues and issue comments</li>
+          <li>Encode these in CMC</li>
+          <li>Merge with additional data (e.g. list of council members)</li>
+        </ul>
+      </section>
+
+      <section data-auto-animate>
+        <pre data-id="tei-example">
+            <code data-trim data-line-numbers>
+&lt;div type=&quot;issue&quot; subtype=&quot;closed&quot; n=&quot;1819&quot;&gt;
+  &lt;head&gt;entry element needs subtype attribute&lt;/head&gt;
+  &lt;post ref=&quot;https://github.com/TEIC/TEI/issues/1819&quot;
+           when-iso=&quot;2018-09-14T00:57:58Z&quot; who=&quot;#user_sydb&quot;
+           xml:id=&quot;issue_1819&quot;&gt;
+              &lt;p&gt;Per discussion at last TEI 2018 conference session,
+               &lt;code&gt;&amp;amp;amp;lt;entry&amp;amp;amp;gt;&lt;/code&gt;
+              should have &lt;code&gt;@subtype&lt;/code&gt;.&lt;/p&gt;
+              &lt;trailer&gt;
+                &lt;measureGrp type=&quot;reactions&quot;
+                    corresp=&quot;https://api.github.com/repos/TEIC/TEI/issues/1819/reactions&quot;&gt;
+                       &lt;measure commodity=&quot;+1&quot; quantity=&quot;2&quot;/&gt;
+                    &lt;/measureGrp&gt;
+                 &lt;/trailer&gt;
+              &lt;/post&gt;
+              &lt;div type=&quot;comments&quot;&gt;
+                &lt;!-- Comments ... --&gt;
+              &lt;/div&gt;
+      &lt;/post&gt;
+&lt;/div&gt;
+            </code>
+        </pre>
+    </section>
+
+    <section>
+      <pre data-id="json-example">
+        <code data-trim  class="json">
+          {
+            "url": "https://api.github.com/repos/TEIC/TEI/issues/1819",
+            "id": 360118578,
+            "number": 1819,
+            "title": "entry element needs subtype attribute",
+            "user": "sydb",
+            "labels": null,
+            "state": "closed",
+            "locked": false,
+            "assignee": "sydb",
+            "assignees": "sydb",
+            "milestone": "Guidelines 3.5.0",
+            "comments": 2,
+            "created_at": "2018-09-14T00:57:58Z",
+            "updated_at": "2019-01-11T12:51:13Z",
+            "closed_at": "2018-09-27T00:24:20Z",
+            "author_association": "MEMBER",
+            "active_lock_reason": null,
+            "state_reason": "completed",
+          }
+        </code>
+      </pre>
+    </section>
+
+    <section>
+      <h2>Method</h2>
+      <ul>
+        <li>Analyzed all issues opened from 2016-2023</li>
+        <li>Tried to separate issues from those currently or previously active on council from "community" (but this is difficult)</li>
+      </ul>
+    </section>
+
+      <section>
+        <div data-chart="totalTickets" class="r-fit-text"></div>
+      </section>
+
+      <section>
+        <div data-chart="daysToClose"></div>
+      </section>
+
+      <section>
+        <div data-chart="daysToFirstResponse"></div>
+      </section>
+
+      <section>
+        <div data-chart="daysToFirstDiscussed"></div>
+      </section>
+
+      <section>
+        <h2>Some Challenges / Further Work</h2>
+        <ul class="fragmented">
+          <li>Lots of issues migrated from SourceForge (dates, users, etc)</li>
+          <li>Evaluating priorities -- which tickets are completed?</li>
+          <li>How transparent is this work?</li>
+          <li>Other metrics from the CHAOSS: "bus factor," time commitments</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Thanks!</h2>
+      </section>
+      
+      </div>
+      </div>
+  </body>
+</html>
